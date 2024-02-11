@@ -1,0 +1,1 @@
+This folder is taken, largely unmodified, from the [encoding-model-scaling-laws](https://github.com/HuthLab/encoding-model-scaling-laws/tree/main?tab=readme-ov-file) repo.

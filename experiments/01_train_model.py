@@ -1,3 +1,5 @@
+import tpr.data
+import tpr.model
 import argparse
 from copy import deepcopy
 import logging
@@ -14,8 +16,6 @@ import os.path
 import imodelsx.cache_save_utils
 
 path_to_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-import project_name.model
-import project_name.data
 
 
 def fit_model(model, X_train, y_train, feature_names, r):
@@ -35,7 +35,8 @@ def evaluate_model(model, X_train, X_cv, X_test, y_train, y_cv, y_test, r):
         "accuracy": accuracy_score,
     }
     for split_name, (X_, y_) in zip(
-        ["train", "cv", "test"], [(X_train, y_train), (X_cv, y_cv), (X_test, y_test)]
+        ["train", "cv", "test"], [
+            (X_train, y_train), (X_cv, y_cv), (X_test, y_test)]
     ):
         y_pred_ = model.predict(X_)
         for metric_name, metric_fn in metrics.items():
@@ -78,7 +79,8 @@ def add_main_args(parser):
     parser.add_argument(
         "--alpha", type=float, default=1, help="regularization strength"
     )
-    parser.add_argument("--max_depth", type=int, default=2, help="max depth of tree")
+    parser.add_argument("--max_depth", type=int, default=2,
+                        help="max depth of tree")
     return parser
 
 
@@ -98,7 +100,8 @@ if __name__ == "__main__":
     # get args
     parser = argparse.ArgumentParser()
     parser_without_computational_args = add_main_args(parser)
-    parser = add_computational_args(deepcopy(parser_without_computational_args))
+    parser = add_computational_args(
+        deepcopy(parser_without_computational_args))
     args = parser.parse_args()
 
     # set up logging
@@ -123,7 +126,7 @@ if __name__ == "__main__":
     # torch.manual_seed(args.seed)
 
     # load text data
-    dset, dataset_key_text = project_name.data.load_huggingface_dataset(
+    dset, dataset_key_text = tpr.data.load_huggingface_dataset(
         dataset_name=args.dataset_name, subsample_frac=args.subsample_frac
     )
     (
@@ -132,7 +135,7 @@ if __name__ == "__main__":
         y_train,
         y_test,
         feature_names,
-    ) = project_name.data.convert_text_data_to_counts_array(dset, dataset_key_text)
+    ) = tpr.data.convert_text_data_to_counts_array(dset, dataset_key_text)
 
     # load tabular data
     # https://csinva.io/imodels/util/data_util.html#imodels.util.data_util.get_clean_dataset
@@ -143,7 +146,7 @@ if __name__ == "__main__":
     )
 
     # load model
-    model = project_name.model.get_model(args)
+    model = tpr.model.get_model(args)
 
     # set up saving dictionary + save params file
     r = defaultdict(list)
