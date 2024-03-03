@@ -22,6 +22,7 @@ from collections import defaultdict
 
 # required saved files
 from tpr.config import SAVE_DIR_FMRI
+# model_dir is llama_model or opt_model
 VOXEL_SELECTIVITY_JBL = join(SAVE_DIR_FMRI, "voxel_lists",
                              "{subject}_voxel_selectivity.jbl")
 ENCODING_WEIGHTS_JBL = join(SAVE_DIR_FMRI, "{model_dir}",
@@ -38,8 +39,6 @@ ROIS_FUNC_JBL = join(SAVE_DIR_FMRI, "voxel_rois",
 class fMRIModule:
     def __init__(
         self,
-        voxel_num_best: int = 0,
-        subject: str = "UTS01",
         checkpoint="facebook/opt-30b",
     ):
         """
@@ -67,8 +66,8 @@ class fMRIModule:
         )
 
         # load fmri-specific stuff
-        self._init_fmri(subject)
-        self._init_fmri_voxel(voxel_num_best, subject)
+        # self._init_fmri(subject)
+        # self._init_fmri_voxel(voxel_num_best, subject)
 
     def _init_fmri(self, subject: str):
         print("initializing fmri...")
