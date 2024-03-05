@@ -25,8 +25,6 @@ from tpr.config import SAVE_DIR_FMRI
 # model_dir is llama_model or opt_model
 VOXEL_SELECTIVITY_JBL = join(SAVE_DIR_FMRI, "voxel_lists",
                              "{subject}_voxel_selectivity.jbl")
-ENCODING_WEIGHTS_JBL = join(SAVE_DIR_FMRI, "{model_dir}",
-                            "model_weights", "wt_{subject}.jbl")
 PREPROC_JBL = join(SAVE_DIR_FMRI, "{model_dir}", "preproc.pkl")
 CORRS_JBL = join(SAVE_DIR_FMRI, "{model_dir}", "voxel_performances",
                  "{subject}_voxel_performance.jbl")
@@ -34,6 +32,10 @@ ROIS_ANAT_JBL = join(SAVE_DIR_FMRI, "voxel_rois",
                      "voxel_anat_rois", "{subject}_voxel_anat_rois.jbl")
 ROIS_FUNC_JBL = join(SAVE_DIR_FMRI, "voxel_rois",
                      "voxel_func_rois", "{subject}_voxel_func_rois.jbl")
+
+# This is where the large weights are stored
+ENCODING_WEIGHTS_JBL = join(SAVE_DIR_FMRI, "{model_dir}",
+                            "model_weights", "wt_{subject}.jbl")
 
 
 class fMRIModule:
