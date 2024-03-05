@@ -1,6 +1,14 @@
+# Setup
+- clone the repo and run `pip install -e .`, resulting in a package named `tpr` that can be imported
+- download the linear encoding weights
+  - OPT: download the weights [here](https://utexas.app.box.com/v/EncodingModelScalingLaws/folder/230422424869) and move to the folder `tpr-embeddings/fmri_voxel_data/llama_model/model_weights`
+    - rename the weights in that folder to `wt_UTS01.jbl`, `wt_UTS01.jbl`, `wt_UTS03.jbl`
+  - LLaMA: download the weights [here](https://utexas.app.box.com/v/EncodingModelScalingLaws/folder/230422427269) and move to the folder `tpr-embeddings/fmri_voxel_data/llama_model/model_weights`
+    - rename the weights in that folder to `wt_UTS01.jbl`, `wt_UTS01.jbl`, `wt_UTS03.jbl`
+
 # Organization
-- clone and run `pip install -e .`, resulting in a package named `tpr` that can be imported
-- `data`: contains scripts and generated text for synthetic experiments
+- `data`: contains text and scripts for text to evaluate the models on
+- `voxel_data`: contains metadata on the fMRI experiments
 - `tpr`: contains main code for modeling (e.g. model architecture)
 - `notebooks`: experiments in jupyter notebooks
 

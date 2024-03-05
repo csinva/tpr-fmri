@@ -21,7 +21,7 @@ import pandas as pd
 from collections import defaultdict
 
 # required saved files
-from tpr.config import SAVE_DIR_FMRI
+from tpr.config import SAVE_DIR_FMRI, SAVE_DIR_LINEAR_WEIGHTS
 # model_dir is llama_model or opt_model
 VOXEL_SELECTIVITY_JBL = join(SAVE_DIR_FMRI, "voxel_lists",
                              "{subject}_voxel_selectivity.jbl")
@@ -34,7 +34,7 @@ ROIS_FUNC_JBL = join(SAVE_DIR_FMRI, "voxel_rois",
                      "voxel_func_rois", "{subject}_voxel_func_rois.jbl")
 
 # This is where the large weights are stored
-ENCODING_WEIGHTS_JBL = join(SAVE_DIR_FMRI, "{model_dir}",
+ENCODING_WEIGHTS_JBL = join(SAVE_DIR_LINEAR_WEIGHTS, "{model_dir}",
                             "model_weights", "wt_{subject}.jbl")
 
 
@@ -93,7 +93,7 @@ class fMRIModule:
         if self.checkpoint == "decapoda-research/llama-30b-hf":
             self.corrs = self.corrs[0]
 
-    def _init_fmri_voxel(self, voxel_num_best: Union[int, np.ndarray[int]], subject: str):
+    def _init_fmri_voxel(self, subject: str, voxel_num_best: Union[int, np.ndarray[int]] = None):
         if isinstance(voxel_num_best, np.ndarray):
             voxel_num_best = voxel_num_best.astype(int)
         self.voxel_num_best = voxel_num_best
@@ -147,7 +147,7 @@ class fMRIModule:
         embs_delayed = np.hstack([embs] * self.ndel)
         preds_fMRI = embs_delayed @ self.weights
 
-        if return_all:
+        if return_all or self.voxel_num_best is None:
             return preds_fMRI  # self.weights was already restricted to top voxels
         else:
             pred_voxel = preds_fMRI[
