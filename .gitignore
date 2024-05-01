@@ -141,3 +141,11 @@ slurm_files/
 slurm_files_out/
 scripts/data/
 **embs_simple_sentences.*
+
+
+# Data files in DISCOVER
+**encodings*
+**weights*
+discover/.transformers/
+discover/.venv/
+

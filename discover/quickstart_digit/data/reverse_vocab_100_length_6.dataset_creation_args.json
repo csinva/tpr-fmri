@@ -1,0 +1,1 @@
+{"n_train": 40000, "n_valid": 1000, "n_test": 5000, "n_gen": 0, "max_seq_length": 6, "min_seq_length": 1, "vocab_size": 100, "withheld_ltr": "", "withheld_rtl": "", "prefix": "reverse_vocab_100_length_6", "task": "reverse", "random_seed": 12345, "data_dir": "quickstart_digit/data/"}
