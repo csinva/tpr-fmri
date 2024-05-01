@@ -1,0 +1,14 @@
+#!/bin/bash
+  
+#SBATCH --job-name=eval
+#SBATCH --partition=gpu
+#SBATCH --time=12:00:00
+#SBATCH --gpus=1
+#SBATCH --mail-type=ALL
+
+module load Python/3.10.8-GCCcore-12.2.0
+source ../inductive-bias-distillation/.venv/bin/activate
+
+python decompose.py --discover_hidden_size 7168 --discover_emb_size 768 --discover_role_emb_size 20 --discover_role_scheme bow --discover_has_linear_layer --patience 5 --learning_rate_decay_patience 5 --eval_every 100 --dropout 0.1 --lr 0.00005 --eval_explained_variance --data_dir bert_svo/data/ --weight_dir bert_svo/weights/ --log_dir bert_svo/logs/ --batch_size 32 --batches_per_buffer 100 --task_type encoding --shuffle --stream --dataset_prefix simple --decoder_model_name fmri --model_name tpe_svo_fmri_768_bow --headers --architecture bert --discover_init_filler_embedding
+
+
